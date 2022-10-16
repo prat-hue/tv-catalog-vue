@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import MenuItem from "./MenuItem.vue";
 import HomeIcon from "./icons/IconHome.vue";
 import IconTv from "@/components/icons/IconTv.vue";
 import IconStreaming from "@/components/icons/IconStreaming.vue";
