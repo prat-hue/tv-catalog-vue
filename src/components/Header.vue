@@ -8,7 +8,9 @@ defineProps<{
 
 <template>
   <h1>{{ title }}</h1>
-  <Menu />
+  <Menu/>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>

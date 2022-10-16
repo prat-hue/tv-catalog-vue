@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import TvShowView from "../views/TvShowView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,6 +14,11 @@ const router = createRouter({
       path: "/tv-shows",
       name: "tv-shows",
       component: () => import("../views/TvShowsView.vue"),
+    },
+    {
+      path: "/tv-shows/:id",
+      name: "tv-show",
+      component: TvShowView,
     },
     {
       path: "/streaming",
