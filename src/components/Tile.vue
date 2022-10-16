@@ -11,8 +11,7 @@ defineProps<{
 <template>
   <RouterLink
       :to="{ name: 'tv-show', params: { id: tvShow.externals?.thetvdb ?? 0 } }"
-      class="tile"
-  >
+      class="tile">
     <img :alt="tvShow.name" :src="imgSrc"/>
     <h4>{{ tvShow.name }}</h4>
   </RouterLink>
@@ -30,6 +29,4 @@ img {
   margin: 0 auto;
 }
 
-<
-/
-style >
+</style>
