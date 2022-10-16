@@ -3,5 +3,4 @@
     <h1>This is a streaming page</h1>
   </div>
 </template>
-<style scoped>
-</style>
+<style scoped></style>

@@ -3,15 +3,17 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 import Search from "@/components/Search.vue";
 import Tile from "@/components/Tile.vue";
-import type {TvShow} from "@/interfaces/TvShow.interface";
-import {ref, watch} from 'vue'
+import type { TvShow } from "@/interfaces/TvShow.interface";
+import { ref, watch } from "vue";
 
-let searchQuery = ref('');
+let searchQuery = ref("");
 let tvShows: { value: TvShow[] } = ref([]);
 
 async function fetchShow(): Promise<void> {
-  const url = `${API_URL}/search/shows?q=${searchQuery.value}`
-  tvShows.value = (await (await fetch(url)).json()).map((obj: { show: TvShow }) => obj.show);
+  const url = `${API_URL}/search/shows?q=${searchQuery.value}`;
+  tvShows.value = (await (await fetch(url)).json()).map(
+    (obj: { show: TvShow }) => obj.show
+  );
 }
 
 function setSearchQuery(query: string): void {
@@ -19,26 +21,29 @@ function setSearchQuery(query: string): void {
 }
 
 watch(searchQuery, () => {
-  fetchShow()
-})
-
+  fetchShow();
+});
 </script>
 
 <template>
   <div class="tv-show">
     <div class="search-wrapper">
-      <Search :value="searchQuery" @on-change="setSearchQuery"/>
+      <Search :value="searchQuery" @on-change="setSearchQuery" />
     </div>
     <div class="tile-wrapper">
       <template v-if="tvShows.length > 0">
-        <Tile v-for="tvShow in tvShows" :key="tvShow.id" :tvShow="tvShow" :imgSrc="tvShow.image?.medium"/>
+        <Tile
+          v-for="tvShow in tvShows"
+          :key="tvShow.id"
+          :tvShow="tvShow"
+          :imgSrc="tvShow.image?.medium"
+        />
       </template>
       <div v-else-if="searchQuery.length > 0" class="no-result">
         No result found
       </div>
     </div>
   </div>
-
 </template>
 <style lang="css" scoped>
 .tv-show {

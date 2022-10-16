@@ -11,7 +11,6 @@
   </div>
 </template>
 <style scoped>
-
 .item {
   display: flex;
   flex-direction: column;

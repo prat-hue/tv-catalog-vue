@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import {RouterView} from "vue-router";
+import { RouterView } from "vue-router";
 import Header from "@/components/Header.vue";
 </script>
 
 <template>
   <div class="wrapper">
     <div class="header">
-      <Header title="Catalog"/>
+      <Header title="Catalog" />
     </div>
     <main>
       <router-view v-slot="{ Component }">
@@ -21,7 +21,6 @@ import Header from "@/components/Header.vue";
 </template>
 
 <style lang="css" scoped>
-
 .wrapper {
   display: flex;
   flex-direction: column;

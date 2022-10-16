@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import IconNavigateBack from "@/components/icons/IconNavigateBack.vue";
-import type {TvShow} from "@/interfaces/TvShow.interface";
+import type { TvShow } from "@/interfaces/TvShow.interface";
 import Tile from "@/components/Tile.vue";
 
 const API_URL = import.meta.env.VITE_API_URL;
-import {ref, onMounted} from 'vue'
-import {useRoute} from "vue-router";
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
 
 let tvShow = ref({});
 let error = ref(false);
@@ -14,60 +14,54 @@ async function fetchShow() {
   const route = useRoute();
   const url = `${API_URL}/lookup/shows?thetvdb=${route.params.id}`;
   fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          error.value = true;
-          return;
-        }
-        return response.json();
-      })
-      .then((response: TvShow) => {
-        tvShow.value = response
-      });
+    .then((response) => {
+      if (!response.ok) {
+        error.value = true;
+        return;
+      }
+      return response.json();
+    })
+    .then((response: TvShow) => {
+      tvShow.value = response;
+    });
 }
 
 onMounted(() => {
-  fetchShow()
-})
-
+  fetchShow();
+});
 </script>
 
 <template>
   <div class="tv-show-wrapper">
     <i>
-      <IconNavigateBack @click="this.$router.go(-1)"/>
+      <IconNavigateBack @click="this.$router.go(-1)" />
     </i>
     <div class="tv-show-content" v-if="!error">
-      <Tile class="tile" :key="tvShow.id" :tvShow="tvShow" :imgSrc="tvShow.image?.original"/>
+      <Tile
+        class="tile"
+        :key="tvShow.id"
+        :tvShow="tvShow"
+        :imgSrc="tvShow.image?.original"
+      />
       <ul class="content">
         <li>
-          <label>
-            Name:
-          </label>
+          <label> Name: </label>
           <p>{{ tvShow.name }}</p>
         </li>
         <li>
-          <label>
-            Language:
-          </label>
+          <label> Language: </label>
           <p>{{ tvShow.language }}</p>
         </li>
         <li>
-          <label>
-            Duration:
-          </label>
+          <label> Duration: </label>
           <p>{{ tvShow.averageRuntime }} minutes</p>
         </li>
         <li>
-          <label>
-            Summary:
-          </label>
+          <label> Summary: </label>
           <div v-html="tvShow.summary"></div>
         </li>
         <li>
-          <label>
-            Status:
-          </label>
+          <label> Status: </label>
           <p>{{ tvShow.status }}</p>
         </li>
         <li>
@@ -76,9 +70,7 @@ onMounted(() => {
       </ul>
     </div>
     <p class="tv-show-content" v-else>No result found</p>
-
   </div>
-
 </template>
 
 <style scoped>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import MenuItem
-  from "./MenuItem.vue";
+import MenuItem from "./MenuItem.vue";
 import HomeIcon from "./icons/IconHome.vue";
 import IconTv from "@/components/icons/IconTv.vue";
 import IconStreaming from "@/components/icons/IconStreaming.vue";
@@ -11,7 +10,7 @@ import IconStreaming from "@/components/icons/IconStreaming.vue";
     <RouterLink to="/">
       <MenuItem>
         <template #icon>
-          <HomeIcon/>
+          <HomeIcon />
         </template>
         <template #heading>Home</template>
       </MenuItem>
@@ -19,7 +18,7 @@ import IconStreaming from "@/components/icons/IconStreaming.vue";
     <RouterLink to="/tv-shows">
       <MenuItem>
         <template #icon>
-          <IconTv/>
+          <IconTv />
         </template>
         <template #heading>Search</template>
       </MenuItem>
@@ -27,7 +26,7 @@ import IconStreaming from "@/components/icons/IconStreaming.vue";
     <RouterLink to="/streaming">
       <MenuItem>
         <template #icon>
-          <IconStreaming/>
+          <IconStreaming />
         </template>
         <template #heading>Streaming</template>
       </MenuItem>
@@ -36,7 +35,6 @@ import IconStreaming from "@/components/icons/IconStreaming.vue";
 </template>
 
 <style>
-
 nav {
   width: 100%;
   font-size: 12px;
