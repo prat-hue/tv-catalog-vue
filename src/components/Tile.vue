@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import {PropType} from "vue";
 import type {TvShow} from "@/interfaces/TvShow.interface";
 
 defineProps<{
-  tvShow: PropType<TvShow>;
+  tvShow: TvShow;
   imgSrc: string | undefined;
 }>();
 </script>

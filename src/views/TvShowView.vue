@@ -1,13 +1,30 @@
 <script setup lang="ts">
 import IconNavigateBack from "@/components/icons/IconNavigateBack.vue";
-import type { TvShow } from "@/interfaces/TvShow.interface";
+import type {TvShow} from "@/interfaces/TvShow.interface";
 import Tile from "@/components/Tile.vue";
+import {ref, onMounted} from "vue";
+import {useRoute} from "vue-router";
 
 const API_URL = import.meta.env.VITE_API_URL;
-import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
 
-let tvShow = ref({});
+let tvShow = ref<TvShow>({
+  image: {
+    medium: '',
+    original: ''
+  },
+  externals: {
+    thetvdb: 0
+  },
+  summary: '',
+  status: '',
+  url: '',
+  name: '',
+  genres: [],
+  language: '',
+  averageRuntime: '',
+  id: 0
+
+});
 let error = ref(false);
 
 onMounted(() => {
@@ -22,30 +39,30 @@ async function fetchShow() {
   const route = useRoute();
   const url = `${API_URL}/lookup/shows?thetvdb=${route.params.id}`;
   fetch(url)
-    .then((response) => {
-      if (!response.ok) {
-        error.value = true;
-        return;
-      }
-      return response.json();
-    })
-    .then((response: TvShow) => {
-      tvShow.value = response;
-    });
+      .then((response) => {
+        if (!response.ok) {
+          error.value = true;
+          return;
+        }
+        return response.json();
+      })
+      .then((response: TvShow) => {
+        tvShow.value = response;
+      });
 }
 </script>
 
 <template>
   <div class="tv-show-wrapper">
     <div class="icon">
-      <IconNavigateBack @click="this.$router.go(-1)" />
+      <IconNavigateBack @click="$router.go(-1)"/>
     </div>
     <div class="tv-show-content" v-if="!error">
       <Tile
-        class="tile"
-        :key="tvShow.id"
-        :tvShow="tvShow"
-        :imgSrc="tvShow.image?.original"
+          class="tile"
+          :key="tvShow.id"
+          :tvShow="tvShow"
+          :imgSrc="tvShow.image?.original"
       />
       <ul class="content">
         <li>

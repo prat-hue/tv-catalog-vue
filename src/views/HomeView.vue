@@ -1,10 +1,9 @@
 <script setup lang="ts">
-const API_URL = import.meta.env.VITE_API_URL;
-
 import Tile from "@/components/Tile.vue";
 import type {TvShow} from "@/interfaces/TvShow.interface";
 import {onMounted, ref} from "vue";
 
+const API_URL = import.meta.env.VITE_API_URL;
 let tvShows = ref<TvShow[]>([]);
 let genres = ref<string[]>([]);
 let displayData = ref<{ genre: string; shows: TvShow[] }[]>([]);
@@ -26,8 +25,8 @@ function setDisplayData() {
   genres.value = [
     ...new Set(
         tvShows.value
-            ?.map((show: TvShow) => show.genres)
-            .reduce(function (a, b) {
+            .map((show: TvShow) => show.genres)
+            .reduce((a: string[], b: string[]) => {
               return a.concat(b);
             })
     ),

@@ -1,13 +1,12 @@
 <script setup lang="ts">
-const API_URL = import.meta.env.VITE_API_URL;
-
 import Search from "@/components/Search.vue";
 import Tile from "@/components/Tile.vue";
 import type { TvShow } from "@/interfaces/TvShow.interface";
 import { ref, watch } from "vue";
 
+const API_URL = import.meta.env.VITE_API_URL;
 let searchQuery = ref("");
-let tvShows: { value: TvShow[] } = ref([]);
+let tvShows = ref<TvShow[]>([]);
 
 /**
  * fetchShow
