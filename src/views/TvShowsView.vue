@@ -1,14 +1,17 @@
 <script setup lang="ts">
-const API_URL = import.meta.env.VITE_API_URL;
-
 import Search from "@/components/Search.vue";
 import Tile from "@/components/Tile.vue";
 import type { TvShow } from "@/interfaces/TvShow.interface";
 import { ref, watch } from "vue";
 
+const API_URL = import.meta.env.VITE_API_URL;
 let searchQuery = ref("");
-let tvShows: { value: TvShow[] } = ref([]);
+let tvShows = ref<TvShow[]>([]);
 
+/**
+ * fetchShow
+ * fetches information about show based on input search query
+ */
 async function fetchShow(): Promise<void> {
   const url = `${API_URL}/search/shows?q=${searchQuery.value}`;
   tvShows.value = (await (await fetch(url)).json()).map(
@@ -16,6 +19,11 @@ async function fetchShow(): Promise<void> {
   );
 }
 
+/**
+ * setSearchQuery
+ * sets input from search componeny
+ * @param query
+ */
 function setSearchQuery(query: string): void {
   searchQuery.value = query;
 }
@@ -65,13 +73,6 @@ watch(searchQuery, () => {
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
-}
-
-.tile-wrapper h4 {
-  text-overflow: ellipsis;
-  max-width: 300px;
-  overflow: hidden;
-  white-space: nowrap;
 }
 
 .no-result {

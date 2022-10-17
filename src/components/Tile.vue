@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import {PropType} from "vue";
 import type {TvShow} from "@/interfaces/TvShow.interface";
 
 defineProps<{
-  tvShow: PropType<TvShow>;
+  tvShow: TvShow;
   imgSrc: string | undefined;
 }>();
 </script>
@@ -22,11 +21,20 @@ defineProps<{
   display: flex;
   flex-direction: column;
   text-align: center;
+  flex: 0 18%;
+  align-items: center;
 }
 
 img {
   max-width: 300px;
   margin: 0 auto;
+}
+
+h4 {
+  text-overflow: ellipsis;
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 </style>

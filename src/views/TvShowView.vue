@@ -1,47 +1,68 @@
 <script setup lang="ts">
 import IconNavigateBack from "@/components/icons/IconNavigateBack.vue";
-import type { TvShow } from "@/interfaces/TvShow.interface";
+import type {TvShow} from "@/interfaces/TvShow.interface";
 import Tile from "@/components/Tile.vue";
+import {ref, onMounted} from "vue";
+import {useRoute} from "vue-router";
 
 const API_URL = import.meta.env.VITE_API_URL;
-import { ref, onMounted } from "vue";
-import { useRoute } from "vue-router";
 
-let tvShow = ref({});
+let tvShow = ref<TvShow>({
+  image: {
+    medium: '',
+    original: ''
+  },
+  externals: {
+    thetvdb: 0
+  },
+  summary: '',
+  status: '',
+  url: '',
+  name: '',
+  genres: [],
+  language: '',
+  averageRuntime: '',
+  id: 0
+
+});
 let error = ref(false);
-
-async function fetchShow() {
-  const route = useRoute();
-  const url = `${API_URL}/lookup/shows?thetvdb=${route.params.id}`;
-  fetch(url)
-    .then((response) => {
-      if (!response.ok) {
-        error.value = true;
-        return;
-      }
-      return response.json();
-    })
-    .then((response: TvShow) => {
-      tvShow.value = response;
-    });
-}
 
 onMounted(() => {
   fetchShow();
 });
+
+/**
+ * fetchShow
+ * function to make api call to fetch information about single tv show
+ */
+async function fetchShow() {
+  const route = useRoute();
+  const url = `${API_URL}/lookup/shows?thetvdb=${route.params.id}`;
+  fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          error.value = true;
+          return;
+        }
+        return response.json();
+      })
+      .then((response: TvShow) => {
+        tvShow.value = response;
+      });
+}
 </script>
 
 <template>
   <div class="tv-show-wrapper">
-    <i>
-      <IconNavigateBack @click="this.$router.go(-1)" />
-    </i>
+    <div class="icon">
+      <IconNavigateBack @click="$router.go(-1)"/>
+    </div>
     <div class="tv-show-content" v-if="!error">
       <Tile
-        class="tile"
-        :key="tvShow.id"
-        :tvShow="tvShow"
-        :imgSrc="tvShow.image?.original"
+          class="tile"
+          :key="tvShow.id"
+          :tvShow="tvShow"
+          :imgSrc="tvShow.image?.original"
       />
       <ul class="content">
         <li>
@@ -69,6 +90,8 @@ onMounted(() => {
         </li>
       </ul>
     </div>
+
+    <!-- 404 content from BE view -->
     <p class="tv-show-content" v-else>No result found</p>
   </div>
 </template>
@@ -82,8 +105,6 @@ onMounted(() => {
 }
 
 .tv-show-content {
-  display: flex;
-  flex-direction: column;
   margin-top: 30px;
 }
 
@@ -91,7 +112,7 @@ label {
   color: var(--color-heading);
 }
 
-i {
+.icon {
   width: 32px;
   height: 32px;
   cursor: pointer;
@@ -108,7 +129,9 @@ li:first-of-type {
 
 @media only screen and (min-width: 1200px) {
   .tv-show-content {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 1fr;
   }
 
   .content {
