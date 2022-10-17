@@ -1,8 +1,8 @@
 <template>
   <div class="item">
-    <i>
+    <div class="icon">
       <slot name="icon"></slot>
-    </i>
+    </div>
     <div class="details">
       <h5>
         <slot name="heading"></slot>

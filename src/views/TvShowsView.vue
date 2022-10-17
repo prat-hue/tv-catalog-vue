@@ -9,6 +9,10 @@ import { ref, watch } from "vue";
 let searchQuery = ref("");
 let tvShows: { value: TvShow[] } = ref([]);
 
+/**
+ * fetchShow
+ * fetches information about show based on input search query
+ */
 async function fetchShow(): Promise<void> {
   const url = `${API_URL}/search/shows?q=${searchQuery.value}`;
   tvShows.value = (await (await fetch(url)).json()).map(
@@ -16,6 +20,11 @@ async function fetchShow(): Promise<void> {
   );
 }
 
+/**
+ * setSearchQuery
+ * sets input from search componeny
+ * @param query
+ */
 function setSearchQuery(query: string): void {
   searchQuery.value = query;
 }
@@ -65,13 +74,6 @@ watch(searchQuery, () => {
   flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
-}
-
-.tile-wrapper h4 {
-  text-overflow: ellipsis;
-  max-width: 300px;
-  overflow: hidden;
-  white-space: nowrap;
 }
 
 .no-result {

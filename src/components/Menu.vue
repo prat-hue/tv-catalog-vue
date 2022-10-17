@@ -48,7 +48,7 @@ nav {
   color: var(--color-heading) !important;
 }
 
-.router-link-exact-active i {
+.router-link-exact-active .icon {
   color: var(--color-heading) !important;
   border: 1px solid var(--color-border-active) !important;
 }

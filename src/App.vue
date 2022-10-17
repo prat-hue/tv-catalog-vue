@@ -9,6 +9,9 @@ import Header from "@/components/Header.vue";
       <Header title="Catalog" />
     </div>
     <main>
+
+      <!-- Smooth fade in transition when routing -->
+
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <div :key="$route.path">
@@ -47,8 +50,13 @@ import Header from "@/components/Header.vue";
     margin-top: 30px;
   }
 
+  .wrapper main {
+    width: calc(100% - 100px);
+  }
+
   .wrapper .header {
     max-width: 20%;
+    position: sticky;
   }
 }
 </style>

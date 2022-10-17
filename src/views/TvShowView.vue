@@ -10,6 +10,14 @@ import { useRoute } from "vue-router";
 let tvShow = ref({});
 let error = ref(false);
 
+onMounted(() => {
+  fetchShow();
+});
+
+/**
+ * fetchShow
+ * function to make api call to fetch information about single tv show
+ */
 async function fetchShow() {
   const route = useRoute();
   const url = `${API_URL}/lookup/shows?thetvdb=${route.params.id}`;
@@ -25,17 +33,13 @@ async function fetchShow() {
       tvShow.value = response;
     });
 }
-
-onMounted(() => {
-  fetchShow();
-});
 </script>
 
 <template>
   <div class="tv-show-wrapper">
-    <i>
+    <div class="icon">
       <IconNavigateBack @click="this.$router.go(-1)" />
-    </i>
+    </div>
     <div class="tv-show-content" v-if="!error">
       <Tile
         class="tile"
@@ -69,6 +73,8 @@ onMounted(() => {
         </li>
       </ul>
     </div>
+
+    <!-- 404 content from BE view -->
     <p class="tv-show-content" v-else>No result found</p>
   </div>
 </template>
@@ -82,8 +88,6 @@ onMounted(() => {
 }
 
 .tv-show-content {
-  display: flex;
-  flex-direction: column;
   margin-top: 30px;
 }
 
@@ -91,7 +95,7 @@ label {
   color: var(--color-heading);
 }
 
-i {
+.icon {
   width: 32px;
   height: 32px;
   cursor: pointer;
@@ -108,7 +112,9 @@ li:first-of-type {
 
 @media only screen and (min-width: 1200px) {
   .tv-show-content {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: 1fr;
   }
 
   .content {
