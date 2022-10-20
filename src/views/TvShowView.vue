@@ -2,10 +2,11 @@
 import IconNavigateBack from "@/components/icons/IconNavigateBack.vue";
 import type {TvShow} from "@/interfaces/TvShow.interface";
 import Tile from "@/components/Tile.vue";
-import {ref, onMounted} from "vue";
+import {ref, onMounted, Ref, inject} from "vue";
 import {useRoute} from "vue-router";
 
 const API_URL = import.meta.env.VITE_API_URL;
+let spinner: Ref<boolean> = inject('token-spinner') as Ref<boolean>;
 
 let tvShow = ref<TvShow>({
   image: {
@@ -39,6 +40,7 @@ onMounted(() => {
  * function to make api call to fetch information about single tv show
  */
 async function fetchShow() {
+  spinner.value = true;
   const route = useRoute();
   const url = `${API_URL}/lookup/shows?thetvdb=${route.params.id}`;
   fetch(url)
@@ -51,6 +53,7 @@ async function fetchShow() {
       })
       .then((response: TvShow) => {
         tvShow.value = response;
+        spinner.value = false;
       });
 }
 </script>
@@ -65,7 +68,7 @@ async function fetchShow() {
           class="tile"
           :key="tvShow.id"
           :tvShow="tvShow"
-          :imgSrc="tvShow.image?.original"
+          :imgSrc="tvShow.image?.original ?? ''"
       />
       <ul class="content">
         <li>

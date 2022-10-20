@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import Header from "@/components/Header.vue";
+import Spinner from "@/components/Spinner.vue";
+import {provide, Ref, ref} from 'vue'
+
+const spin: Ref<boolean> = ref(false);
+
+/** Created a token for spinner following
+ * provider-injector to share global spinner amongst multi level child components
+ *
+ * */
+
+provide('token-spinner', spin);
 </script>
 
 <template>
@@ -11,7 +22,7 @@ import Header from "@/components/Header.vue";
     <main>
 
       <!-- Smooth fade in transition when routing -->
-
+      <Spinner v-show="spin"/>
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <div :key="$route.path">
@@ -27,6 +38,10 @@ import Header from "@/components/Header.vue";
 .wrapper {
   display: flex;
   flex-direction: column;
+}
+
+.header {
+  padding-left: 10px;
 }
 
 .wrapper main {
