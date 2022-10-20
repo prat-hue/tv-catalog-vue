@@ -22,6 +22,9 @@ let tvShow = ref<TvShow>({
   genres: [],
   language: '',
   averageRuntime: '',
+  rating: {
+    average: 0
+  },
   id: 0
 
 });
@@ -125,6 +128,10 @@ li {
 
 li:first-of-type {
   margin-top: 0px;
+}
+
+.content {
+  padding: 0 5px;
 }
 
 @media only screen and (min-width: 1200px) {

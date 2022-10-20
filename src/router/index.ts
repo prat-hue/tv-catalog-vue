@@ -19,12 +19,7 @@ const router = createRouter({
       path: "/tv-shows/:id",
       name: "tv-show",
       component: TvShowView,
-    },
-    {
-      path: "/streaming",
-      name: "streaming",
-      component: () => import("../views/StreamingView.vue"),
-    },
+    }
   ],
 });
 

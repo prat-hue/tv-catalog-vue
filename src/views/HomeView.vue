@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import Tile from "@/components/Tile.vue";
 import type {TvShow} from "@/interfaces/TvShow.interface";
-import {onMounted, ref} from "vue";
+import {computed, ComputedRef, onMounted, ref} from "vue";
+import {useUniqueBy} from '../composables/uniqueBy.js';
 
 const API_URL = import.meta.env.VITE_API_URL;
 let tvShows = ref<TvShow[]>([]);
 let genres = ref<string[]>([]);
-let displayData = ref<{ genre: string; shows: TvShow[] }[]>([]);
+
+const displayData: ComputedRef<{ genre: string; shows: TvShow[] }[]> = computed(() => getDisplayData(genres.value))
+
 
 /**
  * fetchShows
@@ -18,30 +21,28 @@ async function fetchShows(): Promise<TvShow[]> {
 }
 
 /**
- * Map api response to UI usable structure
- * Generates a record of genres and tv shows
+ * Get all unique genres
  */
-function setDisplayData() {
-  genres.value = [
-    ...new Set(
-        tvShows.value
-            .map((show: TvShow) => show.genres)
-            .reduce((a: string[], b: string[]) => {
-              return a.concat(b);
-            })
-    ),
-  ].sort();
-  displayData.value = genres.value.map((genre: string) => {
+function setUniqueGenres() {
+  genres.value = useUniqueBy(tvShows.value, 'genres').sort();
+}
+
+/**
+ * Map genres to UI usable Record<genres,tvShows>
+ * @param genres
+ */
+function getDisplayData(genres: string[]) {
+  return genres.map((genre: string) => {
     return {
       genre,
-      shows: tvShows.value.filter((show) => show.genres.includes(genre)),
+      shows: tvShows.value.filter((show) => show.genres.includes(genre)).sort((a, b) => b.rating.average - a.rating.average),
     };
   });
 }
 
 onMounted(async () => {
   tvShows.value = await fetchShows();
-  setDisplayData();
+  setUniqueGenres();
 });
 
 </script>
@@ -89,10 +90,26 @@ onMounted(async () => {
   margin-bottom: 18px;
   transition: all .5s ease-in-out;
   margin-left: 10px;
+  max-width: 300px;
+  transition: transform 500ms;
 }
 
 .tile-li:first-of-type {
   margin-left: 0px;
+}
+
+.tile-ul:hover .tile-li {
+  transform: translateX(-25%);
+}
+
+.tile-li:hover ~ .tile-li {
+  transform: translateX(25%);
+}
+
+.tile-ul .tile-li:focus,
+.tile-ul .tile-li:hover {
+  transform: scale(1.1);
+  z-index: 1;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
