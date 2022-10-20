@@ -9,12 +9,9 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts"></script>
 
-</script>
-
-<style lang="css" scoped>
-
+<style scoped>
 .wrapper {
   position: fixed;
   width: 100%;
@@ -23,7 +20,7 @@
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  background: var(--color-background-soft) , 0.3;
+  background: var(--color-background-soft), 0.3;
 }
 
 .spin-ring {
@@ -66,5 +63,4 @@
     transform: rotate(360deg);
   }
 }
-
 </style>

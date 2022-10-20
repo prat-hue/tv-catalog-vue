@@ -2,7 +2,8 @@
 import { RouterView } from "vue-router";
 import Header from "@/components/Header.vue";
 import Spinner from "@/components/Spinner.vue";
-import {provide, Ref, ref} from 'vue'
+import { provide, ref } from "vue";
+import type { Ref } from "vue";
 
 const spin: Ref<boolean> = ref(false);
 
@@ -11,7 +12,7 @@ const spin: Ref<boolean> = ref(false);
  *
  * */
 
-provide('token-spinner', spin);
+provide("token-spinner", spin);
 </script>
 
 <template>
@@ -20,9 +21,8 @@ provide('token-spinner', spin);
       <Header title="Catalog" />
     </div>
     <main>
-
       <!-- Smooth fade in transition when routing -->
-      <Spinner v-show="spin"/>
+      <Spinner v-show="spin" />
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <div :key="$route.path">

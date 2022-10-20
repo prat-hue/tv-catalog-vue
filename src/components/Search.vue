@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {onMounted} from "vue";
+import { onMounted } from "vue";
 import { ref } from "vue";
 
 defineProps<{
@@ -17,13 +17,12 @@ const emit = defineEmits(["on-change"]);
  */
 function inputChange(e: Event) {
   const target = e.target as HTMLInputElement;
-  emit('on-change', target.value.trim());
+  emit("on-change", target.value.trim());
 }
 
 onMounted(() => {
-  input.value?.focus()
-})
-
+  input.value?.focus();
+});
 </script>
 
 <template>
@@ -31,11 +30,11 @@ onMounted(() => {
     {{ label }}
   </label>
   <input
-      ref="input"
-      type="text"
-      name="label"
-      :value="value"
-      @change="inputChange"
+    ref="input"
+    type="text"
+    name="label"
+    :value="value"
+    @change="inputChange"
   />
 </template>
 

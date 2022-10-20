@@ -7,7 +7,7 @@ import IconTv from "@/components/icons/IconTv.vue";
 <template>
   <nav>
     <RouterLink to="/">
-      <MenuItem>
+      <MenuItem id="menu-item">
         <template #icon>
           <HomeIcon />
         </template>
@@ -15,7 +15,7 @@ import IconTv from "@/components/icons/IconTv.vue";
       </MenuItem>
     </RouterLink>
     <RouterLink to="/tv-shows">
-      <MenuItem>
+      <MenuItem id="menu-item">
         <template #icon>
           <IconTv />
         </template>

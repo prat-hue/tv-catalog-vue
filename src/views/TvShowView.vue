@@ -1,33 +1,33 @@
 <script setup lang="ts">
 import IconNavigateBack from "@/components/icons/IconNavigateBack.vue";
-import type {TvShow} from "@/interfaces/TvShow.interface";
+import type { TvShow } from "@/interfaces/TvShow.interface";
 import Tile from "@/components/Tile.vue";
-import {ref, onMounted, Ref, inject} from "vue";
-import {useRoute} from "vue-router";
+import { ref, onMounted, inject } from "vue";
+import { useRoute } from "vue-router";
+import type { Ref } from "vue";
 
 const API_URL = import.meta.env.VITE_API_URL;
-let spinner: Ref<boolean> = inject('token-spinner') as Ref<boolean>;
+let spinner: Ref<boolean> = inject("token-spinner") as Ref<boolean>;
 
 let tvShow = ref<TvShow>({
   image: {
-    medium: '',
-    original: ''
+    medium: "",
+    original: "",
   },
   externals: {
-    thetvdb: 0
+    thetvdb: 0,
   },
-  summary: '',
-  status: '',
-  url: '',
-  name: '',
+  summary: "",
+  status: "",
+  url: "",
+  name: "",
   genres: [],
-  language: '',
-  averageRuntime: '',
+  language: "",
+  averageRuntime: "",
   rating: {
-    average: 0
+    average: 0,
   },
-  id: 0
-
+  id: 0,
 });
 let error = ref(false);
 
@@ -44,31 +44,31 @@ async function fetchShow() {
   const route = useRoute();
   const url = `${API_URL}/lookup/shows?thetvdb=${route.params.id}`;
   fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          error.value = true;
-          return;
-        }
-        return response.json();
-      })
-      .then((response: TvShow) => {
-        tvShow.value = response;
-        spinner.value = false;
-      });
+    .then((response) => {
+      if (!response.ok) {
+        error.value = true;
+        return;
+      }
+      return response.json();
+    })
+    .then((response: TvShow) => {
+      tvShow.value = response;
+      spinner.value = false;
+    });
 }
 </script>
 
 <template>
   <div class="tv-show-wrapper">
     <div class="icon">
-      <IconNavigateBack @click="$router.go(-1)"/>
+      <IconNavigateBack @click="$router.go(-1)" />
     </div>
     <div class="tv-show-content" v-if="!error">
       <Tile
-          class="tile"
-          :key="tvShow.id"
-          :tvShow="tvShow"
-          :imgSrc="tvShow.image?.original ?? ''"
+        class="tile"
+        :key="tvShow.id"
+        :tvShow="tvShow"
+        :imgSrc="tvShow.image?.original ?? ''"
       />
       <ul class="content">
         <li>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import Search from "@/components/Search.vue";
 import Tile from "@/components/Tile.vue";
-import type {TvShow} from "@/interfaces/TvShow.interface";
-import {inject, Ref, ref, watch} from "vue";
-
+import type { TvShow } from "@/interfaces/TvShow.interface";
+import { inject, ref, watch } from "vue";
+import type { Ref } from "vue";
 const API_URL = import.meta.env.VITE_API_URL;
 let searchQuery = ref("");
 let tvShows = ref<TvShow[]>([]);
-let spinner: Ref<boolean> = inject('token-spinner') as Ref<boolean>;
+let spinner: Ref<boolean> = inject("token-spinner") as Ref<boolean>;
 
 /**
  * fetchShow
@@ -17,7 +17,7 @@ async function fetchShow(): Promise<void> {
   spinner.value = true;
   const url = `${API_URL}/search/shows?q=${searchQuery.value}`;
   tvShows.value = (await (await fetch(url)).json()).map(
-      (obj: { show: TvShow }) => obj.show
+    (obj: { show: TvShow }) => obj.show
   );
   spinner.value = false;
 }
@@ -39,17 +39,16 @@ watch(searchQuery, () => {
 <template>
   <div class="tv-show">
     <div class="search-wrapper">
-      <Search :value="searchQuery" @on-change="setSearchQuery"/>
+      <Search :value="searchQuery" @on-change="setSearchQuery" />
     </div>
     <div class="tile-wrapper">
       <template v-if="tvShows.length > 0">
-        <div class="tile" v-for="tvShow in tvShows">
-          <Tile :key="tvShow.id"
-                :tvShow="tvShow"
-                :imgSrc="tvShow.image?.medium ?? ''"
+        <div class="tile" v-for="tvShow in tvShows" :key="tvShow.id">
+          <Tile
+            :tvShow="tvShow"
+            :imgSrc="tvShow.image?.medium ?? ''"
           />
         </div>
-
       </template>
       <div v-else-if="searchQuery.length > 0" class="no-result">
         No result found

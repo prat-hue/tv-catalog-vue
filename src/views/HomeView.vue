@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import Tile from "@/components/Tile.vue";
-import type {TvShow} from "@/interfaces/TvShow.interface";
-import {computed, ComputedRef, onMounted, Ref, ref} from "vue";
-import {uniqueBy} from "../utils/uniqueBy";
-import {inject} from 'vue'
+import type { TvShow } from "@/interfaces/TvShow.interface";
+import type { Ref, ComputedRef } from "vue";
+import { computed, onMounted, ref } from "vue";
+import { uniqueBy } from "../utils/uniqueBy";
+import { inject } from "vue";
 
 const API_URL = import.meta.env.VITE_API_URL;
 let tvShows = ref<TvShow[]>([]);
 let genres = ref<string[]>([]);
 
-
-let spinner: Ref<boolean> = inject('token-spinner') as Ref<boolean>;
-const displayData: ComputedRef<{ genre: string; shows: TvShow[] }[]> = computed(() => getDisplayData(genres.value))
-
+let spinner: Ref<boolean> = inject("token-spinner") as Ref<boolean>;
+const displayData: ComputedRef<{ genre: string; shows: TvShow[] }[]> = computed(
+  () => getDisplayData(genres.value)
+);
 
 /**
  * fetchShows
@@ -27,7 +28,7 @@ async function fetchShows(): Promise<TvShow[]> {
  * Get all unique genres
  */
 function setUniqueGenres() {
-  genres.value = uniqueBy(tvShows.value, 'genres').sort();
+  genres.value = uniqueBy(tvShows.value, "genres").sort();
 }
 
 /**
@@ -38,7 +39,9 @@ function getDisplayData(genres: string[]) {
   return genres.map((genre: string) => {
     return {
       genre,
-      shows: tvShows.value.filter((show) => show.genres.includes(genre)).sort((a, b) => b.rating.average - a.rating.average),
+      shows: tvShows.value
+        .filter((show) => show.genres.includes(genre))
+        .sort((a, b) => b.rating.average - a.rating.average),
     };
   });
 }
@@ -49,17 +52,16 @@ onMounted(async () => {
   spinner.value = false;
   setUniqueGenres();
 });
-
 </script>
 <template>
   <div class="content-wrapper" v-for="data in displayData" :key="data.genre">
     <h3>{{ data.genre }}</h3>
     <div class="tile-wrapper">
       <ul class="tile-ul">
-        <li class="tile-li" v-for="tvShow in data.shows">
-          <Tile :key="tvShow.id"
-                :tvShow="tvShow"
-                :imgSrc="tvShow.image?.medium ?? ''"
+        <li class="tile-li" v-for="tvShow in data.shows" :key="tvShow.id">
+          <Tile
+            :tvShow="tvShow"
+            :imgSrc="tvShow.image?.medium ?? ''"
           />
         </li>
       </ul>
@@ -93,7 +95,7 @@ onMounted(async () => {
   display: inline-block;
   list-style: none;
   margin-bottom: 18px;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   margin-left: 10px;
   max-width: 300px;
   transition: transform 500ms;
@@ -127,6 +129,4 @@ onMounted(async () => {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-
-
 </style>

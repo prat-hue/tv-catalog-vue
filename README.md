@@ -1,52 +1,73 @@
-# vue-tv-catalog
 
-This template should help get you started developing with Vue 3 in Vite.
+# TV shows app
 
-## Recommended IDE Setup
+This codebase has been created to demonstrate an app that showcases design and programming skills built with **Vue3** using APIs from **http://www.tvmaze.com/api**
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Authors
 
-## Type Support for `.vue` Imports in TS
+- [@prat-hue](https://github.com/prat-hue)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+## Demo
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## Features
 
-## Customize configuration
+- Vite
+- Composition API
+- SFC <script setup> sugar
+- Vue router
+- Typescript and vue-tsc
+- Eslint
+- Unit test using Vitest
+- Responsive mobile first approach
+- Spinner demonstrating Vue provide inject
+- Used accessibility friendly tags
+- Vue Transition used for animations
+- Vue slots
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
+## Run Locally
 
-```sh
+Install dependencies
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Start the server
 
-```sh
+```bash
 npm run dev
+
+```
+## Or by Docker
+
+Docker build
+
+```bash
+docker build -t <tag-name> .
 ```
 
-### Type-Check, Compile and Minify for Production
+Docker run
 
-```sh
-npm run build
+```bash
+docker run -it -p 8080:8080 <tag-name> 
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+## Running Tests
 
-```sh
+To run tests, run the following command
+
+```bash
 npm run test:unit
 ```
 
-### Lint with [ESLint](https://eslint.org/)
 
-```sh
-npm run lint
-```
+## Optimizations
+
+- Good care has been taken to keep code and styles simple and lean as possible
+- Improvements are possible w.rt caching and initial page load.
+
+## Acknowledgements
+
+- Thanks to my friend <3 to have contributed to help with chores and good ambience to help me write this amidst my busy schedule
