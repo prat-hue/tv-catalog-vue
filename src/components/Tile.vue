@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type {TvShow} from "@/interfaces/TvShow.interface";
+import type { TvShow } from "@/interfaces/TvShow.interface";
 import IconFavourite from "@/components/icons/IconFavourite.vue";
 
 defineProps<{
@@ -10,13 +10,14 @@ defineProps<{
 
 <template>
   <RouterLink
-      :to="{ name: 'tv-show', params: { id: tvShow.externals?.thetvdb ?? 0 } }"
-      class="tile">
-    <img :alt="tvShow.name" :src="imgSrc"/>
+    :to="{ name: 'tv-show', params: { id: tvShow.externals?.thetvdb ?? 0 } }"
+    class="tile"
+  >
+    <img :alt="tvShow.name" :src="imgSrc" />
     <div class="tile-title">
       <h5>{{ tvShow.name }}</h5>
       <div class="rating-wrapper">
-        <IconFavourite/>
+        <IconFavourite />
         <h6 class="rating">{{ tvShow.rating?.average }}</h6>
       </div>
     </div>
@@ -60,5 +61,4 @@ h4 {
   overflow: hidden;
   white-space: nowrap;
 }
-
 </style>

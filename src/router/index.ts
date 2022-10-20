@@ -19,7 +19,7 @@ const router = createRouter({
       path: "/tv-shows/:id",
       name: "tv-show",
       component: TvShowView,
-    }
+    },
   ],
 });
 
