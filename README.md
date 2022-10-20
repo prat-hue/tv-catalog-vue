@@ -9,6 +9,7 @@ This codebase has been created to demonstrate an app that showcases design and p
 
 
 ## Demo
+![appshort](https://user-images.githubusercontent.com/54122351/196995180-08e27870-cfad-465a-8a90-7ec95ad026ea.gif)
 
 ## Features
 
