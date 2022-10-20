@@ -16,4 +16,7 @@ export interface TvShow {
   language: string;
   averageRuntime: string;
   id: number;
+    rating: {
+        average: number;
+    }
 }

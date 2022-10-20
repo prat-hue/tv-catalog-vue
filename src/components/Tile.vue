@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type {TvShow} from "@/interfaces/TvShow.interface";
+import IconFavourite from "@/components/icons/IconFavourite.vue";
 
 defineProps<{
   tvShow: TvShow;
@@ -12,7 +13,13 @@ defineProps<{
       :to="{ name: 'tv-show', params: { id: tvShow.externals?.thetvdb ?? 0 } }"
       class="tile">
     <img :alt="tvShow.name" :src="imgSrc"/>
-    <h4>{{ tvShow.name }}</h4>
+    <div class="tile-title">
+      <h5>{{ tvShow.name }}</h5>
+      <div class="rating-wrapper">
+        <IconFavourite/>
+        <h6 class="rating">{{ tvShow.rating?.average }}</h6>
+      </div>
+    </div>
   </RouterLink>
 </template>
 
@@ -25,9 +32,26 @@ defineProps<{
   align-items: center;
 }
 
+.tile-title {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 5px;
+}
+
+.rating-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.rating {
+  margin-left: 5px;
+}
+
 img {
-  max-width: 300px;
-  margin: 0 auto;
+  max-width: 100%;
 }
 
 h4 {

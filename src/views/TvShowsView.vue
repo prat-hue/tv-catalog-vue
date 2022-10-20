@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import Search from "@/components/Search.vue";
 import Tile from "@/components/Tile.vue";
-import type { TvShow } from "@/interfaces/TvShow.interface";
-import { ref, watch } from "vue";
+import type {TvShow} from "@/interfaces/TvShow.interface";
+import {ref, watch} from "vue";
 
 const API_URL = import.meta.env.VITE_API_URL;
 let searchQuery = ref("");
@@ -15,7 +15,7 @@ let tvShows = ref<TvShow[]>([]);
 async function fetchShow(): Promise<void> {
   const url = `${API_URL}/search/shows?q=${searchQuery.value}`;
   tvShows.value = (await (await fetch(url)).json()).map(
-    (obj: { show: TvShow }) => obj.show
+      (obj: { show: TvShow }) => obj.show
   );
 }
 
@@ -36,16 +36,17 @@ watch(searchQuery, () => {
 <template>
   <div class="tv-show">
     <div class="search-wrapper">
-      <Search :value="searchQuery" @on-change="setSearchQuery" />
+      <Search id="data-testid=search" :value="searchQuery" @on-change="setSearchQuery"/>
     </div>
     <div class="tile-wrapper">
       <template v-if="tvShows.length > 0">
-        <Tile
-          v-for="tvShow in tvShows"
-          :key="tvShow.id"
-          :tvShow="tvShow"
-          :imgSrc="tvShow.image?.medium"
-        />
+        <div class="tile" v-for="tvShow in tvShows">
+          <Tile :key="tvShow.id"
+                :tvShow="tvShow"
+                :imgSrc="tvShow.image?.medium"
+          />
+        </div>
+
       </template>
       <div v-else-if="searchQuery.length > 0" class="no-result">
         No result found
@@ -64,6 +65,11 @@ watch(searchQuery, () => {
   display: flex;
   align-items: center;
   height: 100%;
+  margin: 0 auto;
+}
+
+.tile {
+  max-width: 300px;
   margin: 0 auto;
 }
 

@@ -2,7 +2,6 @@
 import MenuItem from "./MenuItem.vue";
 import HomeIcon from "./icons/IconHome.vue";
 import IconTv from "@/components/icons/IconTv.vue";
-import IconStreaming from "@/components/icons/IconStreaming.vue";
 </script>
 
 <template>
@@ -21,14 +20,6 @@ import IconStreaming from "@/components/icons/IconStreaming.vue";
           <IconTv />
         </template>
         <template #heading>Search</template>
-      </MenuItem>
-    </RouterLink>
-    <RouterLink to="/streaming">
-      <MenuItem>
-        <template #icon>
-          <IconStreaming />
-        </template>
-        <template #heading>Streaming</template>
       </MenuItem>
     </RouterLink>
   </nav>
